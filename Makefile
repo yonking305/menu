@@ -1,19 +1,19 @@
-.PHONY: build run clean
+.PHONY: build run clean test docker-build docker-run
 
 build:
-	go build -o bin/server ./cmd/
+	mvn clean package -DskipTests
 
 run:
-	go run ./cmd/
+	mvn spring-boot:run
 
 clean:
-	rm -rf bin/
+	mvn clean
+
+test:
+	mvn test
 
 docker-build:
 	docker build -t menu:latest .
 
 docker-run:
 	docker run -p 8081:8081 menu:latest
-
-test:
-	go test ./...
